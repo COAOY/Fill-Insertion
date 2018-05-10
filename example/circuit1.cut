@@ -1,0 +1,5 @@
+0 0 100 80 ; chip boundary
+1 60 0 100 10 2 1 Normal; 
+2 0 40 100 50 1 1 Normal; 
+3 0 40 10 80 1 2 Normal; 
+4 60 0 70 80 2 2 Normal;
