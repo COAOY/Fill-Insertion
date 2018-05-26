@@ -15,7 +15,7 @@ public:
 	void store_data();
 	point* _BLboundary; // Chip boundary
 	point* _TRboundary; // Chip boundary
-	vector<block*> _Blocks; // All the layout blocks
+	vector < vector <block*> > _Blocks; // All the layout blocks
 	int _window; // Window size
 	vector<rule*> _Rules; // Conductor rules from rule file
 

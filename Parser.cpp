@@ -116,7 +116,7 @@ void circuit::parser(char* _filename)
 		z = z - _BLboundary->_y;
 
 		block* Tmp = new block(w, x, y, z, q, r);
-		_Blocks.push_back(Tmp);
+		_Blocks[r].push_back(Tmp);
 		
 	}
 		
