@@ -15,7 +15,7 @@ public:
 	void store_data();
 	point* _BLboundary; // Chip boundary
 	point* _TRboundary; // Chip boundary
-	vector < vector <block*> > _Blocks; // All the layout blocks
+	vector < vector < block* > > _Blocks; // All the layout blocks
 	int _window; // Window size
 	vector<rule*> _Rules; // Conductor rules from rule file
 
@@ -38,6 +38,15 @@ public:
 	int _y;
 	point(int a, int b):_x(a), _y(b){}; // Constructor
 	point():_x(0), _y(0){}; // Constructor
+
+	bool operator< (const point &s) const
+	{
+		
+		if (this->_y == s._y)
+			return (this->_x < s._x);
+		else
+			return (this->_y < s._y);
+	}
 };
 
 class block
@@ -45,15 +54,19 @@ class block
 public:
 	point* _BL; // Bottom Left corner
 	point* _TR; // Top Right corner
+	point* _BR; // Bottom Right corner
+	point* _TL; // Top Left corner
 	int _id;
 	int _layer;
 	block(int w, int x, int y, int z, int p, int q)
 	{
 		_BL = new point(w, x);
 		_TR = new point(y, z);
+		_BR = new point(y, x);
+		_TL = new point(w, z);
 		_id = p;
 		_layer = q;
-	};
+	}; // Constructor
 };
 
 class cap

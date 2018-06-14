@@ -146,7 +146,7 @@ void circuit::parser(char* _filename)
 	{
 		int Cl, Wmin, Smin, Wmax;
 		float Dmin, Dmax;
-
+ 
 		FileInRule >> Cl;
 		FileInRule.getline(temp, 100, 'R');
 		FileInRule >> Wmin >> Smin >> Wmax >> Dmin >> Dmax;
