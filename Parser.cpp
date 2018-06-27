@@ -70,6 +70,26 @@ void circuit::parser(char* _filename)
 	}
 
 	FileInCong.close();
+
+////////////////////////////////////////////////////////////////////////////////////// Parsing rule file
+
+	fstream FileInRule;
+	FileInRule.open(rulefile, ios::in);
+
+	while(!FileInRule.eof())
+	{
+		int Cl, Wmin, Smin, Wmax;
+		float Dmin, Dmax;
+ 
+		FileInRule >> Cl;
+		FileInRule.getline(temp, 100, 'R');
+		FileInRule >> Wmin >> Smin >> Wmax >> Dmin >> Dmax;
+		rule* hi = new rule(Cl, Wmin, Smin, Wmax, Dmin, Dmax);
+		_Rules.push_back(hi);
+	}
+
+	FileInRule.close();
+
 ////////////////////////////////////////////////////////////////////////////////////// Parsing the layout input
 
 	cout << "===========================================================" << endl;
@@ -109,11 +129,19 @@ void circuit::parser(char* _filename)
 		FileInDes >> w >> x >> y >> z >> q >> r;
 		FileInDes.getline(temp, 100, '\n');
 		FileInDes >> p;
+		
+		int mins;
 
-		w = w - _BLboundary->_x; // Normalization
-		x = x - _BLboundary->_y;
-		y = y - _BLboundary->_x;
-		z = z - _BLboundary->_y;
+		for (auto &y:_Rules)
+		{
+			if (y->_Lid == r)
+				mins = y->_smin;
+		}
+
+		w = w - _BLboundary->_x - mins; // Normalization
+		x = x - _BLboundary->_y - mins;
+		y = y - _BLboundary->_x + mins;
+		z = z - _BLboundary->_y + mins;
 
 		block* Tmp = new block(w, x, y, z, q, r);
 		_Blocks[r].push_back(Tmp);
@@ -137,24 +165,7 @@ void circuit::parser(char* _filename)
 
 	FileInPro.close();
 
-////////////////////////////////////////////////////////////////////////////////////// Parsing rule file
 
-	fstream FileInRule;
-	FileInRule.open(rulefile, ios::in);
-
-	while(!FileInRule.eof())
-	{
-		int Cl, Wmin, Smin, Wmax;
-		float Dmin, Dmax;
- 
-		FileInRule >> Cl;
-		FileInRule.getline(temp, 100, 'R');
-		FileInRule >> Wmin >> Smin >> Wmax >> Dmin >> Dmax;
-		rule* hi = new rule(Cl, Wmin, Smin, Wmax, Dmin, Dmax);
-		_Rules.push_back(hi);
-	}
-
-	FileInRule.close();
 
 	return;
 }

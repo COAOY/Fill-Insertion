@@ -17,7 +17,7 @@ public:
 	point* _TRboundary; // Chip boundary
 	vector < vector < block* > > _Blocks; // All the layout blocks
 	int _window; // Window size
-	vector<rule*> _Rules; // Conductor rules from rule file
+	vector < rule* > _Rules; // Conductor rules from rule file
 
 
 
@@ -36,16 +36,16 @@ class point
 public:
 	int _x;
 	int _y;
-	point(int a, int b):_x(a), _y(b){}; // Constructor
-	point():_x(0), _y(0){}; // Constructor
-
+	int _Type; // 1 for Top, 0 for Bottom, 2 for chip boundary, 3 for block on boundary, 4 for mid
+	point(int a, int b, int c):_x(a), _y(b), _Type(c){};
+	point():_x(0), _y(0), _Type(-1){};
 	bool operator< (const point &s) const
 	{
 		
 		if (this->_y == s._y)
 			return (this->_x < s._x);
 		else
-			return (this->_y < s._y);
+			return (this->_y > s._y);
 	}
 };
 
@@ -67,6 +67,24 @@ public:
 		_id = p;
 		_layer = q;
 	}; // Constructor
+};
+
+class interval
+{
+public:
+	int _L;
+	int _R;
+	// int _matchT;
+	// int _matchB;
+	// interval(int x, int y, int t, int b):_L(x), _R(y), _matchB(b), _matchT(t){};
+	interval(int x, int y):_L(x), _R(y){};
+	bool operator< (const interval &s) const
+	{
+		if (this->_R == s._R)
+			return (this->_L < s._L);
+		else
+			return (this->_R > s._R);
+	}
 };
 
 class cap
