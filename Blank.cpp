@@ -1,7 +1,6 @@
-/***********************
-Blank.cpp
-***********************/
-
+//*****************************************************************************
+// Blank.cpp
+//*****************************************************************************
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -112,6 +111,7 @@ void Circuit::Blank_Point()
 
 		Blank_Array(_P, Lay);
 	}
+	
 }
 
 void Circuit::Blank_Array( vector < point > &SortedPoint , int Lay )
@@ -151,12 +151,12 @@ void Circuit::Blank_Array( vector < point > &SortedPoint , int Lay )
 	// 	cout << "====================" << endl;
 	// }
 
-	cout << "Y = "; // Print our all the Y 
-	for (auto &x:YY)
-	{
-		cout << x << " ";
-	}
-	cout << endl << "====================" << endl;
+	// cout << "Y = "; // Print our all the Y 
+	// for (auto &x:YY)
+	// {
+	// 	cout << x << " ";
+	// }
+	// cout << endl << "====================" << endl;
 
 	vector < vector < int > > X_Array; // the x value of the whole chip
 	vector < int > X_temp;
@@ -249,15 +249,15 @@ void Circuit::Blank_Array( vector < point > &SortedPoint , int Lay )
 	s = X_Array.size();
 
 	/* Print out for debug */
-	for (auto &y:X_Array)
-	{
-		for (auto &x:y)
-		{
-			cout << x << " ";
-		}
-		cout << endl;
-	}
-	cout << "====================" << endl;
+	// for (auto &y:X_Array)
+	// {
+	// 	for (auto &x:y)
+	// 	{
+	// 		cout << x << " ";
+	// 	}
+	// 	cout << endl;
+	// }
+	// cout << "====================" << endl;
 
 	vector < block* > Blank_temp;
 	string q;
@@ -312,16 +312,17 @@ void Circuit::Blank_Array( vector < point > &SortedPoint , int Lay )
 		block* LL = new block(a1, x.second->_end, a2, x.second->_start, 0, Lay, _TRboundary->_x, _TRboundary->_y);
 		Blank_temp.push_back(LL);
 	}
+	_blanks.push_back(Blank_temp);
 
 	/* Print out for debug */
-	cout << "Layer " << Lay << endl;
-	cout << "Blank: " << endl;
-	for (auto &y:Blank_temp)
-	{
-		cout << endl;
-		cout << "x = " << y->_BL->_x << " y = " << y->_BL->_y << endl;
-		cout << "x = " << y->_TR->_x << " y = " << y->_TR->_y << endl;
-	}
-	cout << "!!!!!!!!!!!!!!!!!!!!!!!!DONE!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-}
+	// cout << "Layer " << Lay << endl;
+	// cout << "Blank: " << endl;
+	// for (auto &y:Blank_temp)
+	// {
+	// 	cout << "x = " << y->_BL->_x << " y = " << y->_BL->_y << endl;
+	// 	cout << "x = " << y->_TR->_x << " y = " << y->_TR->_y << endl;
 
+	// 	// cout << "Area = " << ((y->_TR->_y - y->_BL->_y)*(y->_TR->_x - y->_BL->_x)) << endl;
+	// }
+	// cout << "!!!!!!!!!!!!!!!!!!!!!!!!DONE!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
+}

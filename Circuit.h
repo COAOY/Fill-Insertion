@@ -1,6 +1,6 @@
-/***********************
-Circuit.h
-***********************/
+//*****************************************************************************
+// Circuit.h
+//*****************************************************************************
 
 #ifndef CIRCUIT_H
 #define CIRCUIT_H
@@ -19,6 +19,7 @@ class Circuit
 {
 public:
 	int _window; // Window size;
+	int _windowsize; // Window size (area)
 	point* _TRboundary; // Top right boundary
 	point* _BLboundary; // Bottom left boundary
 	vector < int > _criticalID; // ID for critical nets
@@ -28,6 +29,7 @@ public:
 	vector < rule* > _rules; // Rule file
 	char _output[30];
 	vector < vector < block* > > _blanks; // Empty blank space
+	vector < vector < block* > > _fills; // Dummy Fills
 
 	void Parser(char* filename);
 	void Parse_Design(char* desfile);
@@ -40,7 +42,10 @@ public:
 	void Blank_Array( vector < point > &SortedPoint, int Lay );
 	// void RMstr(string in, int& out1, int& out2);
 
-	vector < vector < block* > > FillInsertion( vector < vector < block* > > Cell );
+	bool Check_Density( point window_BL, point window_TR, int window_Layer );
+	void Management();
+
+	void FillInsertion( point* TR, point* BL, int layer );
 	void FileOut(vector < vector < block* > > Fill);
 
 };

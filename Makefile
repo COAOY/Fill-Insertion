@@ -1,7 +1,7 @@
 # Define required macros here
 CFLAGS = -std=c++0x -c -O3
-OBJS = main.o Parser.o Blank.o FileOut.o
-CPPS = main.cpp Parser.cpp Blank.cpp FileOut.cpp 
+OBJS = main.o Parser.o Blank.o FileOut.o Density.o
+CPPS = main.cpp Parser.cpp Blank.cpp FileOut.cpp Density.cpp
 LIBS =
 TARGET = main
 CC = g++

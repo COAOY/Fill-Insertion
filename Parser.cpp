@@ -1,6 +1,6 @@
-/***********************
-Parser.cpp
-***********************/
+//*****************************************************************************
+// Parser.cpp
+//*****************************************************************************
 
 #include <fstream>
 #include <string>
@@ -137,6 +137,7 @@ void Circuit::Parse_RuleFile(char* rufile)
 
 void Circuit::Parse_Design(char* desfile)
 {
+	// cout << "test" << endl;
 	int v = 0;
 	int b = 0;
 	string hi;
@@ -158,15 +159,15 @@ void Circuit::Parse_Design(char* desfile)
 
 	FileInDes >> v;
 	FileInDes >> b;
-	_TRboundary = new point(v, b, 2); 
+	_TRboundary = new point( (v-_BLboundary->_x), (b-_BLboundary->_y), 2); 
 
 	/* Print Out for debuging*/
-	// cout << "Top Right Bound: ";
-	// cout << _TRboundary->_x << " ";
-	// cout << _TRboundary->_y << endl;
-	// cout << "bottom Left Bound: ";
-	// cout << _BLboundary->_x << " ";
-	// cout << _BLboundary->_y << endl;
+	cout << "Top Right Bound: ";
+	cout << _TRboundary->_x << " ";
+	cout << _TRboundary->_y << endl;
+	cout << "bottom Left Bound: ";
+	cout << _BLboundary->_x << " ";
+	cout << _BLboundary->_y << endl;
 
 	FileInDes.ignore(18);
 
@@ -240,6 +241,7 @@ void Circuit::Parse_Pro(char* pro)
 	FileInPro.getline(temp, 100, ' ');
 	FileInPro >> _window;
 	cout << "Window Size: " << _window << endl;
+	_windowsize = _window*_window;
 
 	FileInPro.close();
 }
