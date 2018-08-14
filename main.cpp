@@ -14,8 +14,6 @@ int main(int argc, char* argv[])
 
 	cir.Parser(argv[1]);
 	cir.Blank_Point();
-	// cir.FillInsertion();
-	// cir.FileOut();
 	cir.Management();
 
 	return 0;

@@ -7,7 +7,9 @@
 #include <vector> 
 #include <map>
 #include <iostream>
+#include <fstream>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 class point;
@@ -22,14 +24,15 @@ public:
 	int _windowsize; // Window size (area)
 	point* _TRboundary; // Top right boundary
 	point* _BLboundary; // Bottom left boundary
-	vector < int > _criticalID; // ID for critical nets
-	vector < int > _powerID; // ID for power nets
-	vector < int > _gndID; // ID for ground nets
+	map < int, int > _criticalID; // ID for critical nets
+	map < int, int > _powerID; // ID for power nets
+	map < int, int > _gndID; // ID for ground nets
 	vector < vector < block* > > _blocks; // input blocks(critical, gnd, non-critical)
 	vector < rule* > _rules; // Rule file
-	char _output[30];
+	char _output[30]; // Output file name
 	vector < vector < block* > > _blanks; // Empty blank space
 	vector < vector < block* > > _fills; // Dummy Fills
+
 
 	void Parser(char* filename);
 	void Parse_Design(char* desfile);
@@ -44,6 +47,7 @@ public:
 
 	bool Check_Density( point window_BL, point window_TR, int window_Layer );
 	void Management();
+	void Find_Cell( point win_BL, point win_TR, int win_layer);
 
 	void FillInsertion( point* TR, point* BL, int layer );
 	void FileOut(vector < vector < block* > > Fill);
@@ -152,4 +156,15 @@ public:
 	}; // Constructor
 };
 
+
+class window
+{
+public:
+	int _lay;
+	vector < block* > _blank;
+	vector < block* > _critiacl;
+	vector < block* > _gnd;
+	vector < block* > _non;
+	int area;
+};
 #endif

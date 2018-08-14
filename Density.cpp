@@ -41,12 +41,12 @@ void Circuit::Management()
 				if (Check_Density(BL, TR, L))
 				{
 					pass++;
-					cout << "1" << endl;
+					// cout << "1" << endl;
 				}
 				else
 				{
 					fail++;
-					cout << "0" << endl;
+					// cout << "0" << endl;
 				}
 			}
 		}
@@ -65,7 +65,7 @@ void Circuit::Management()
 //            in   : Window TR point, Window BL point, Window layer
 //            out  : pass -> 1, failed -> 0
 //          ]
-//Date      [ 2018_08_07 ]
+//Date      [ 2018_07_26 ]
 //*****************************************************************************
 bool Circuit::Check_Density( point window_BL, point window_TR, int window_Layer )
 {
@@ -120,4 +120,20 @@ bool Circuit::Check_Density( point window_BL, point window_TR, int window_Layer 
 		return 1; // Pass Density Check
 	else 
 		return 0; // Did not pass density check
+}
+
+
+//*****************************************************************************
+//Function  [ Find_Cell ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: Given a window which doesn't meet density criteria, find    
+//                   the cell to insert fill blocks.
+//            in   : Window TR point, Window BL point, Window layer
+//            out  : void
+//          ]
+//Date      [ 2018_08_14]
+//*****************************************************************************
+void Circuit::Find_Cell( point win_BL, point win_TR, int win_layer)
+{
+
 }

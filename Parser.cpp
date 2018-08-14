@@ -6,10 +6,22 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <map>
 #include <vector>
 #include "Circuit.h"
 using namespace std;
 
+
+//*****************************************************************************
+//Function  [ Parser ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: Parse the input config file and called other parsing  
+//                   function
+//            in   : filename(config file name)
+//            out  : void
+//          ]
+//Date      [ 2018_08_14 ]
+//*****************************************************************************
 void Circuit::Parser(char* filename)
 {
 	char design[30];
@@ -61,7 +73,7 @@ void Circuit::Parser(char* filename)
 			while (temp != "power_nets:")
 			{
 				a = atoi(temp.c_str());
-				_criticalID.push_back(a);
+				_criticalID[a] = 1;
 				FileInConfig >> temp;
 			}
 
@@ -69,7 +81,7 @@ void Circuit::Parser(char* filename)
 			while (temp != "ground_nets:")
 			{
 				a = atoi(temp.c_str());
-				_powerID.push_back(a);
+				_powerID[a] = 1;
 				FileInConfig >> temp;
 			}
 
@@ -77,7 +89,7 @@ void Circuit::Parser(char* filename)
 			while (!FileInConfig.eof())
 			{
 				a = atoi(temp.c_str());
-				_gndID.push_back(a);
+				_gndID[a] = 1;
 				FileInConfig >> temp;
 			}
 		}
@@ -90,6 +102,18 @@ void Circuit::Parser(char* filename)
 	Parse_Pro(processfile);
 }
 
+
+
+//*****************************************************************************
+//Function  [ Parser_RuleFile ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: Parse the rule file
+//                   
+//            in   : rulefile name
+//            out  : void 
+//          ]
+//Date      [ 2018_08_14 ]
+//*****************************************************************************
 void Circuit::Parse_RuleFile(char* rufile)
 {
 	fstream FileInRule;
@@ -115,7 +139,7 @@ void Circuit::Parse_RuleFile(char* rufile)
 	FileInRule >> Cl;
 	while(!FileInRule.eof())
 	{
-		FileInRule.getline(g, 100, 'r');
+		FileInRule.getline(g, 100, 'R');
 		FileInRule >> Wmin >> Smin >> Wmax >> Dmin >> Dmax;
 	
 		rule* hi = new rule(Cl, Wmin, Smin, Wmax, Dmin, Dmax);
@@ -135,6 +159,16 @@ void Circuit::Parse_RuleFile(char* rufile)
 	FileInRule.close();
 }
 
+//*****************************************************************************
+//Function  [ Parse_Design ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: Parse Design file.
+//                   
+//            in   : design file name
+//            out  : void 
+//          ]
+//Date      [ 2018_08_14 ]
+//*****************************************************************************
 void Circuit::Parse_Design(char* desfile)
 {
 	// cout << "test" << endl;
@@ -159,15 +193,16 @@ void Circuit::Parse_Design(char* desfile)
 
 	FileInDes >> v;
 	FileInDes >> b;
+	// Normalize
 	_TRboundary = new point( (v-_BLboundary->_x), (b-_BLboundary->_y), 2); 
 
 	/* Print Out for debuging*/
-	cout << "Top Right Bound: ";
-	cout << _TRboundary->_x << " ";
-	cout << _TRboundary->_y << endl;
-	cout << "bottom Left Bound: ";
-	cout << _BLboundary->_x << " ";
-	cout << _BLboundary->_y << endl;
+	// cout << "Top Right Bound: ";
+	// cout << _TRboundary->_x << " ";
+	// cout << _TRboundary->_y << endl;
+	// cout << "bottom Left Bound: ";
+	// cout << _BLboundary->_x << " ";
+	// cout << _BLboundary->_y << endl;
 
 	FileInDes.ignore(18);
 
@@ -218,6 +253,17 @@ void Circuit::Parse_Design(char* desfile)
 	_blocks = _BLOCKS;
 }
 
+
+//*****************************************************************************
+//Function  [ Parse_Pro ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: Parse processfile.
+//                   
+//            in   : Process file name
+//            out  : void 
+//          ]
+//Date      [ 2018_08_14 ]
+//*****************************************************************************
 void Circuit::Parse_Pro(char* pro)
 {
 	fstream FileInPro;
@@ -240,7 +286,7 @@ void Circuit::Parse_Pro(char* pro)
 	FileInPro.getline(temp, 100, '\n');
 	FileInPro.getline(temp, 100, ' ');
 	FileInPro >> _window;
-	cout << "Window Size: " << _window << endl;
+	// cout << "Window Size: " << _window << endl;
 	_windowsize = _window*_window;
 
 	FileInPro.close();

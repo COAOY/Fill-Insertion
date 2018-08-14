@@ -59,7 +59,6 @@ void Circuit::FillInsertion( point* TR, point* BL, int layer)
 		y2 = y2 + (midwidth*2) + (spacing*2);
 	}
 	
-	// Not Done Yet!!
 }
 
 //********:********************************************************************

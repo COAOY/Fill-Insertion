@@ -12,6 +12,16 @@ using namespace std;
 
 bool Point_Comparison(point d, point e){return d < e;};
 
+//*****************************************************************************
+//Function  [ RMStr ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: convert a string like "37,41" into out1 = 37, out2 = 41
+//                   
+//            in   : string int& int& (in = num1,num2)
+//            out  : void 
+//          ]
+//Date      [ 2018_08_14 ]
+//*****************************************************************************
 void RMStr(string in, int& out1, int& out2)
 {
 	string a;
@@ -35,6 +45,17 @@ void RMStr(string in, int& out1, int& out2)
 	out2 = stoi(b);
 }
 
+
+//*****************************************************************************
+//Function  [ Blank_Point ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: Mark out all the point needed, and sort them. 
+//                   (Point_Comparision function is needed.)
+//            in   : void
+//            out  : void 
+//          ]
+//Date      [ 2018_07_23 ]
+//*****************************************************************************
 void Circuit::Blank_Point()
 {
 	cout << "Processing..." << endl;
@@ -104,6 +125,7 @@ void Circuit::Blank_Point()
 
 		sort(_P.begin(), _P.end(), Point_Comparison); //Sort all the points
 
+		/* Print out for debug */
 		// for (auto &x:_P)
 		// {
 		// 	cout << "x = " << x._x << "; y = " << x._y << "; Type = " << x._Type << endl;
@@ -111,9 +133,19 @@ void Circuit::Blank_Point()
 
 		Blank_Array(_P, Lay);
 	}
-	
+	// FileOut(_blanks);
 }
 
+//*****************************************************************************
+//Function  [ Blank_Array ]
+//Commentor [ Christine Lai ]
+//Synopsis  [ Usage: Take the sorted points and set them into arrays and circle 
+//                   the blank out. 
+//            in   : vector < point > SortedPoint, int layer
+//            out  : void 
+//          ]
+//Date      [ 2018_07_23 ]
+//*****************************************************************************
 void Circuit::Blank_Array( vector < point > &SortedPoint , int Lay )
 {
 	int pre = SortedPoint[1]._y; // Previous _y value
@@ -313,6 +345,8 @@ void Circuit::Blank_Array( vector < point > &SortedPoint , int Lay )
 		Blank_temp.push_back(LL);
 	}
 	_blanks.push_back(Blank_temp);
+
+
 
 	/* Print out for debug */
 	// cout << "Layer " << Lay << endl;
